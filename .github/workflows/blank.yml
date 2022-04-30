@@ -26,6 +26,10 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
 
+      - name: Try enabling ipv6
+        run: |
+          ip addr add ::1/128 dev lo label lo:skip6
+
       # Runs a single command using the runners shell
       - name: Run ip addr ls
         run: ip addr ls
@@ -51,3 +55,14 @@ jobs:
 #     valid_lft forever preferred_lft forever
 
 ## container
+#
+#  Run ip addr ls
+#1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+#     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+#     inet 127.0.0.1/8 scope host lo
+#     valid_lft forever preferred_lft forever
+#5: eth0@if6: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default
+#     link/ether 02:42:ac:12:00:02 brd ff:ff:ff:ff:ff:ff link-netnsid 0
+#     inet 172.18.0.2/16 brd 172.18.255.255 scope global eth0
+#     valid_lft forever preferred_lft forever
+
